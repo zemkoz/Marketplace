@@ -1,11 +1,11 @@
-﻿using Marketplace.Framework;
+﻿using Marketplace.Domain.Exception;
+using Marketplace.Domain.Service;
+using Marketplace.Framework;
 
 namespace Marketplace.Domain;
 
 public class Money : Value<Money>
 {
-    private const string DefaultCurrency = "EUR";
-    
     public decimal Amount { get; }
     public CurrencyDetails Currency { get; }
 

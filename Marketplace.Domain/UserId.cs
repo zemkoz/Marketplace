@@ -4,7 +4,7 @@ namespace Marketplace.Domain;
 
 public class UserId : Value<UserId>
 {
-    private readonly Guid _value;
+    public Guid Value { get;  }
 
     public UserId(Guid value)
     {
@@ -13,6 +13,6 @@ public class UserId : Value<UserId>
             throw new ArgumentNullException(nameof(value), "User id cannot be empty");
         }
         
-        _value = value;
+        Value = value;
     }
 }

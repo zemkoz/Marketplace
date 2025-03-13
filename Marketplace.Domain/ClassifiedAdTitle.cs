@@ -6,7 +6,7 @@ public class ClassifiedAdTitle : Value<ClassifiedAdTitle>
 {
     public static ClassifiedAdTitle FromString(string title) => new(title);
 
-    private readonly string _value;
+    public string Value { get; }
 
     private ClassifiedAdTitle(string value)
     {
@@ -17,6 +17,6 @@ public class ClassifiedAdTitle : Value<ClassifiedAdTitle>
                 nameof(value));
         }
 
-        _value = value;
+        Value = value;
     }
 }

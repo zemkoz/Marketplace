@@ -4,7 +4,7 @@ namespace Marketplace.Domain;
 
 public class ClassifiedAdId : Value<ClassifiedAdId>
 {
-    private readonly Guid _value;
+    public Guid Value { get;  }
 
     public ClassifiedAdId(Guid value)
     {
@@ -13,6 +13,8 @@ public class ClassifiedAdId : Value<ClassifiedAdId>
             throw new ArgumentNullException(nameof(value), "Classified Ad id cannot be empty");
         }
         
-        _value = value;
+        Value = value;
     }
+    
+    public static implicit operator Guid(ClassifiedAdId self) => self.Value;
 }

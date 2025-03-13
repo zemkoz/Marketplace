@@ -1,4 +1,5 @@
 ﻿using Marketplace.Domain;
+using Marketplace.Domain.Service;
 
 namespace Marketplace.Tests;
 

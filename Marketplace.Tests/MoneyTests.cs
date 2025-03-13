@@ -1,4 +1,6 @@
 ﻿using Marketplace.Domain;
+using Marketplace.Domain.Exception;
+using Marketplace.Domain.Service;
 using Xunit;
 
 namespace Marketplace.Tests;
@@ -28,7 +30,6 @@ public class MoneyTests
 
         Assert.NotEqual(firstAmount, secondAmount);
     }
-
 
     [Fact]
     public void FromString_and_FromDecimal_are_equal()
