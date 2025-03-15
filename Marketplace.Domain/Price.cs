@@ -10,13 +10,24 @@ public class Price : Money
     public new static Price FromString(string amount, string currency, ICurrencyLookup currencyLookup) =>
         new(decimal.Parse(amount), currency, currencyLookup);
 
-    
-    public Price(decimal amount, string currencyCode, ICurrencyLookup currencyLookup) 
-        : base(amount, currencyCode, currencyLookup)
+
+    private Price(
+        decimal amount,
+        string currencyCode,
+        ICurrencyLookup currencyLookup
+    ) : base(amount, currencyCode, currencyLookup)
     {
         if (amount < 0)
             throw new ArgumentException(
                 "Price cannot be negative",
                 nameof(amount));
+    }
+
+    internal Price(decimal amount, string currencyCode)
+        : base(amount, new CurrencyDetails
+        {
+            CurrencyCode = currencyCode
+        })
+    {
     }
 }

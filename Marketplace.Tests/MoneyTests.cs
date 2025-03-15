@@ -12,10 +12,8 @@ public class MoneyTests
     [Fact]
     public void Two_of_same_amount_should_be_equal()
     {
-        var firstAmount = Money.FromDecimal(5, "EUR",
-            CurrencyLookup);
-        var secondAmount = Money.FromDecimal(5, "EUR",
-            CurrencyLookup);
+        var firstAmount = Money.FromDecimal(5, "EUR", CurrencyLookup);
+        var secondAmount = Money.FromDecimal(5, "EUR", CurrencyLookup);
 
         Assert.Equal(firstAmount, secondAmount);
     }
@@ -81,10 +79,8 @@ public class MoneyTests
     [Fact]
     public void Throws_on_adding_different_currencies()
     {
-        var firstAmount = Money.FromDecimal(5, "USD",
-            CurrencyLookup);
-        var secondAmount = Money.FromDecimal(5, "EUR",
-            CurrencyLookup);
+        var firstAmount = Money.FromDecimal(5, "USD", CurrencyLookup);
+        var secondAmount = Money.FromDecimal(5, "EUR", CurrencyLookup);
 
         Assert.Throws<CurrencyMismatchException>(() =>
             firstAmount + secondAmount

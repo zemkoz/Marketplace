@@ -8,8 +8,11 @@ public class ClassifiedAdText : Value<ClassifiedAdText>
 
     public string Value { get; }
 
-    private ClassifiedAdText(string value)
+    internal ClassifiedAdText(string value)
     {
         Value = value;
     }
+    
+    public static implicit operator string(ClassifiedAdText text)
+        => text.Value;
 }
