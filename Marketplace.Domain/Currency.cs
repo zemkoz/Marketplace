@@ -2,13 +2,13 @@
 
 namespace Marketplace.Domain;
 
-public class CurrencyDetails : Value<CurrencyDetails>
+public class Currency : Value<Currency>
 {
     public string CurrencyCode { get; set; }
     public bool InUse { get; set; }
     public int DecimalPlaces { get; set; }
 
-    public static readonly CurrencyDetails None = new()
+    public static readonly Currency None = new()
     {
         InUse = false
     };

@@ -1,41 +1,46 @@
+using Marketplace.API;
+using Marketplace.Domain;
+using Marketplace.Domain.Service;
+using Raven.Client.Documents;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services
+    .AddOpenApi()
+    .AddControllers();
+
+var store = new DocumentStore
+{
+    Urls = new[] {"http://localhost:8080"},
+    Database = "MarketplaceDB",
+    Conventions =
+    {
+        FindIdentityProperty = m => m.Name == "_databaseId"
+    }
+};
+store.Conventions.RegisterAsyncIdConvention<ClassifiedAd>(
+    (dbName, entity) => Task.FromResult("ClassifiedAd/" + entity.Id));
+store.Initialize();
+builder.Services.AddTransient(c => store.OpenAsyncSession());
+builder.Services.AddTransient<IClassifiedAdRepository, ClassifiedAdRepository>();
+builder.Services.AddTransient<ICurrencyLookup, FixedCurrencyLookup>();
+builder.Services.AddSingleton<IApplicationService, ClassifiedAdsApplicationService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseDeveloperExceptionPage();
+    app.MapOpenApi()
+        .WithName("Classified Ads");
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "Classified Ads V1");
+    });
 }
 
+app.MapControllers();
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
-
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+

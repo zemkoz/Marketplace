@@ -7,7 +7,7 @@ namespace Marketplace.Domain;
 public class Money : Value<Money>
 {
     public decimal Amount { get; }
-    public CurrencyDetails Currency { get; }
+    public Currency Currency { get; }
 
     public static Money FromDecimal(decimal amount, string currency, ICurrencyLookup currencyLookup) =>
         new(amount, currency, currencyLookup);
@@ -41,7 +41,7 @@ public class Money : Value<Money>
         Currency = currency;
     }
 
-    internal Money(decimal amount, CurrencyDetails currency)
+    internal Money(decimal amount, Currency currency)
     {
         Amount = amount;
         Currency = currency;

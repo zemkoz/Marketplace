@@ -1,6 +1,11 @@
-@Marketplace.API_HostAddress = http://localhost:5039
+@host = https://localhost:5000
 
-GET {{Marketplace.API_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{host}}/ad/
+Content-Type: application/json
+
+{
+  "id": "1a2c84b9-20ba-48fc-94a8-aadc2b0cdc32",
+  "OwnerId": "2204f8dc-efe6-42cf-b10f-38bbe100165a"
+}
 
 ###

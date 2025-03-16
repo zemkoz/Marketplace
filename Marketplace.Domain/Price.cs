@@ -24,7 +24,7 @@ public class Price : Money
     }
 
     internal Price(decimal amount, string currencyCode)
-        : base(amount, new CurrencyDetails
+        : base(amount, new Currency
         {
             CurrencyCode = currencyCode
         })
